@@ -2,6 +2,10 @@ package com.example.SpringBootRestApiBook.Entities;
 
 import jakarta.persistence.*;
 
+/*
+* Entity defines database
+*
+* */
 @Entity
 @Table(name = "Book")
 public class Book {
@@ -12,13 +16,28 @@ public class Book {
     private String bookName;
     private String subject;
 
+    //Non primitive data type
+    /*
+    * How to map?
+    * One - book has only one author
+    * unidirectional flow
+    * book to author
+    * cascade - automatically save author automatically
+    * */
+
+    @OneToOne(fetch = FetchType.EAGER , cascade = CascadeType.MERGE , targetEntity = Author.class)
+    @JoinColumn(name = "authorId", referencedColumnName = "author_id",nullable = false)
+    private Author author;
+
+
     public Book() {
     }
 
-    public Book(int bookId, String bookName, String subject) {
+    public Book(int bookId, String bookName, String subject, Author author) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.subject = subject;
+        this.author = author;
     }
 
     public int getBookId() {
@@ -45,12 +64,21 @@ public class Book {
         this.subject = subject;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
                 ", bookName='" + bookName + '\'' +
                 ", subject='" + subject + '\'' +
+                ", author=" + author +
                 '}';
     }
 }
