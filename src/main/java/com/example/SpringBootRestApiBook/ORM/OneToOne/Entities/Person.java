@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 * person - parent , address- child
 * */
 @Entity
+@Table(name = "person_table")
 public class Person {
 
     @Id
@@ -73,3 +74,8 @@ public class Person {
                 '}';
     }
 }
+/*
+* Bidiectional mapping:
+* if book has author
+* and author has book
+* */

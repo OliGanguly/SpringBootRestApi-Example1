@@ -82,3 +82,7 @@ public class Book {
                 '}';
     }
 }
+/*
+* Bidirectional Mapping :
+* if book has author and author has book
+* */
